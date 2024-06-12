@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef } from 'react'
-import Phaser from 'phaser'
+import * as Phaser from 'phaser'
 import MyPhaserScene from './class/index'
 
 const PixelGame: React.FC = () => {
@@ -22,7 +22,6 @@ const PixelGame: React.FC = () => {
 		}
 
 		return () => {
-			// 销毁 Phaser 实例
 			if (gameInstanceRef.current) {
 				gameInstanceRef.current.destroy(true)
 			}

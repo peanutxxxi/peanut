@@ -1,5 +1,6 @@
-import PixelGame from './components/PixelGame'
+import dynamic from 'next/dynamic'
+const DynamicPixelGame = dynamic(() => import('./components/PixelGame'), { ssr: false })
 
 export default function Page() {
-	return <PixelGame />
+	return <DynamicPixelGame />
 }

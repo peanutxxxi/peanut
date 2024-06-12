@@ -1,4 +1,5 @@
-import Phaser from 'phaser'
+'use client'
+import * as Phaser from 'phaser'
 
 export default class Example extends Phaser.Scene {
 	private sprite!: Phaser.GameObjects.Sprite
