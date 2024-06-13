@@ -4,37 +4,24 @@ import * as Phaser from 'phaser'
 export default class Example extends Phaser.Scene {
 	private sprite!: Phaser.GameObjects.Sprite
 	private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-	private speed = 5 // 移动速度
+	private speed = 50 // 移动速度
 	private moving = false
+
 	constructor() {
 		super({ key: 'MyPhaserScene' })
 	}
 
 	preload() {
 		this.load.path = '/map'
-		this.load.image('map', '/map.jpg')
+		this.load.image('grass', '/land.png')
 		this.load.aseprite('paladin', '/paladin.png', '/paladin.json')
 	}
 
 	create() {
-		this.add.image(800, 450, 'map')
+		this.createBackground()
 
 		const tags = this.anims.createFromAseprite('paladin')
-		this.sprite = this.add.sprite(800, 400, 'paladin').setDisplaySize(20, 20).play({ key: 'step', repeat: -1 }).setScale(2)
-
-		// for (let i = 0; i < tags.length; i++) {
-		// 	const label = this.add.text(32, 32 + i * 16, tags[i].key, { color: '#00ff00' })
-
-		// 	label.setInteractive()
-		// 	label.setPosition(200, 100 + i * 20) // 设置位置
-		// }
-
-		// this.input.on('gameobjectdown', (pointer: any, obj: any) => {
-		// 	this.sprite.play({
-		// 		key: obj.text,
-		// 		repeat: -1,
-		// 	})
-		// })
+		this.sprite = this.add.sprite(827, 415, 'paladin').setDisplaySize(20, 20).play({ key: 'step', repeat: -1 }).setScale(1)
 
 		this.input.on('gameobjectover', (pointer: any, obj: any) => {
 			obj.setColor('#ff00ff')
@@ -53,23 +40,16 @@ export default class Example extends Phaser.Scene {
 		this.createButton(750, 830, 'down', () => this.moveDown())
 	}
 
-	update() {
-		this.moving = false
+	update() {}
 
-		if (this.cursors.left.isDown) {
-			this.moveLeft()
-		} else if (this.cursors.right.isDown) {
-			this.moveRight()
-		}
-
-		if (this.cursors.up.isDown) {
-			this.moveUp()
-		} else if (this.cursors.down.isDown) {
-			this.moveDown()
-		}
-
-		if (!this.moving) {
-			this.sprite.anims.play('step', true)
+	createBackground() {
+		const tileSize = 50
+		const rows = 10
+		const cols = 50
+		for (let y = 0; y < rows; y++) {
+			for (let x = 0; x < cols; x++) {
+				this.add.image(x * tileSize, y * tileSize, 'grass').setOrigin(0)
+			}
 		}
 	}
 
@@ -81,6 +61,7 @@ export default class Example extends Phaser.Scene {
 			.setOrigin(0.5)
 			.setColor('#00ff00')
 	}
+
 	moveLeft() {
 		this.moving = true
 		this.sprite.anims.play('SHit', true)
