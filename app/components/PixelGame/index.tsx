@@ -28,9 +28,41 @@ const PixelGame: React.FC = () => {
 		}
 	}, [])
 
+	const handleMove = (direction: 'up' | 'down' | 'left' | 'right') => {
+		const scene = gameInstanceRef.current?.scene.getScene('MyPhaserScene') as MyPhaserScene
+		switch (direction) {
+			case 'up':
+				scene.moveUp()
+				break
+			case 'down':
+				scene.moveDown()
+				break
+			case 'left':
+				scene.moveLeft()
+				break
+			case 'right':
+				scene.moveRight()
+				break
+		}
+	}
+
 	return (
 		<div className="flex items-center justify-center w-full h-full">
 			<div id="phaser-game" ref={gameRef} />
+			<div className="absolute opacity-0">
+				<button id="up" onClick={() => handleMove('up')}>
+					up
+				</button>
+				<button id="down" onClick={() => handleMove('down')}>
+					down
+				</button>
+				<button id="left" onClick={() => handleMove('left')}>
+					left
+				</button>
+				<button id="right" onClick={() => handleMove('right')}>
+					right
+				</button>
+			</div>
 		</div>
 	)
 }
